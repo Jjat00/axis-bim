@@ -1,9 +1,23 @@
-function App() {
-  return (
-    <div className="min-h-screen bg-white">
-      <h1 className="text-4xl font-bold text-center pt-20">Axis BIM</h1>
-    </div>
-  )
-}
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Services from "./components/Services";
+import Portfolio from "./components/Portfolio";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
-export default App
+export default function App() {
+  return (
+    <div className="min-h-screen bg-surface text-on-surface">
+      <Navbar />
+      <main>
+        <Hero />
+        <Services />
+        <Portfolio />
+        <About />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
+}

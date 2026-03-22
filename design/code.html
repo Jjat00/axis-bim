@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AXIS BIM | Virtual Design &amp; Precision Coordination</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error-container": "#93000a",
+              "surface-container-highest": "#2e3541",
+              "error": "#ffb4ab",
+              "tertiary-fixed-dim": "#bcc7de",
+              "surface-container": "#18202b",
+              "surface-container-high": "#232a36",
+              "on-tertiary-fixed-variant": "#3c475a",
+              "on-primary-fixed-variant": "#004f54",
+              "outline-variant": "#3b494b",
+              "on-secondary-fixed": "#2f1500",
+              "surface-tint": "#00dbe9",
+              "on-tertiary": "#263143",
+              "inverse-surface": "#dbe3f2",
+              "on-secondary-container": "#603100",
+              "secondary-container": "#fd8b00",
+              "on-tertiary-container": "#545f73",
+              "tertiary": "#f4f6ff",
+              "inverse-primary": "#006970",
+              "surface": "#0c141e",
+              "tertiary-container": "#cfdaf2",
+              "on-surface-variant": "#b9cacb",
+              "on-error": "#690005",
+              "on-tertiary-fixed": "#111c2d",
+              "on-error-container": "#ffdad6",
+              "on-secondary": "#4d2600",
+              "primary-container": "#00f0ff",
+              "inverse-on-surface": "#29313c",
+              "background": "#0c141e",
+              "surface-container-lowest": "#070f19",
+              "secondary-fixed": "#ffdcc3",
+              "secondary-fixed-dim": "#ffb77d",
+              "primary": "#dbfcff",
+              "on-secondary-fixed-variant": "#6e3900",
+              "tertiary-fixed": "#d8e3fb",
+              "surface-variant": "#2e3541",
+              "on-primary": "#00363a",
+              "surface-container-low": "#141c27",
+              "surface-bright": "#323a45",
+              "primary-fixed-dim": "#00dbe9",
+              "secondary": "#ffb77d",
+              "on-surface": "#dbe3f2",
+              "primary-fixed": "#7df4ff",
+              "surface-dim": "#0c141e",
+              "on-primary-container": "#006970",
+              "outline": "#849495",
+              "on-primary-fixed": "#002022",
+              "on-background": "#dbe3f2"
+            },
+            fontFamily: {
+              "headline": ["Space Grotesk"],
+              "body": ["Manrope"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0c141e;
+            color: #dbe3f2;
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(24, 32, 43, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .blueprint-grid {
+            background-image: radial-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .headline-glitch {
+            text-shadow: 2px 0 #00f0ff, -2px 0 #ffb77d;
+        }
+    </style>
+</head>
+<body class="selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#0c141e]/60 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,240,255,0.05)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="text-2xl font-bold tracking-tighter text-cyan-400 uppercase font-headline">
+                BIM_ARCHITECT
+            </div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-cyan-400 border-b-2 border-cyan-400 pb-1 font-bold font-label text-sm tracking-widest" href="#">Home</a>
+<a class="text-slate-300 hover:text-cyan-200 transition-colors font-label text-sm tracking-widest uppercase" href="#">Services</a>
+<a class="text-slate-300 hover:text-cyan-200 transition-colors font-label text-sm tracking-widest uppercase" href="#">Portfolio</a>
+<a class="text-slate-300 hover:text-cyan-200 transition-colors font-label text-sm tracking-widest uppercase" href="#">About</a>
+<a class="text-slate-300 hover:text-cyan-200 transition-colors font-label text-sm tracking-widest uppercase" href="#">Contact</a>
+</nav>
+<button class="bg-primary-container text-on-primary-container px-6 py-2.5 font-headline font-bold text-sm uppercase tracking-wider hover:bg-surface-tint transition-all scale-100 active:scale-95">
+                Schedule Consultation
+            </button>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+<div class="absolute inset-0 z-0">
+<img alt="Technical architectural section" class="w-full h-full object-cover opacity-30 grayscale" data-alt="3D BIM wireframe model of a complex skyscraper interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh9GLIbG5E9koTuzEHy_09BlztlAmVvtIMRj51WYUNZ6jAdE6UUW8m3MR2nfwFMZXeIkoiAjEk7gEAXI7zOVPJDRXrazDSVepxVyHfnNtbowJzL2eaXEbQwsy4qupIZEoh3qwXvLGyN_gE1Pb0NgtESRc3wynR56Aowj3M0rs_wtY0xpoA4mu18TlvC0UYclQH9ImrEE1g9ppQW1YVLITbXmZ4GiPyOS-FKFALkRHNkhoDl8MtbbPgjC3c3ZJ68i0j6hLozGPjtcZf"/>
+<div class="absolute inset-0 bg-gradient-to-b from-surface via-transparent to-surface"></div>
+<div class="absolute inset-0 blueprint-grid opacity-20"></div>
+</div>
+<div class="relative z-10 container mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7">
+<div class="mb-4 inline-flex items-center gap-3 px-4 py-1 bg-surface-container-high rounded-full border border-primary-container/20">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-[10px] uppercase tracking-[0.3em] font-headline text-primary-container font-semibold">Precision Matrix v2.4</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-headline font-black leading-none tracking-tighter text-white mb-8">
+                        VIRTUAL <span class="text-primary-container">DESIGN</span> &amp; PRECISION
+                    </h1>
+<div class="flex items-center gap-6">
+<div class="h-px w-24 bg-primary-container/50"></div>
+<p class="text-xl font-body text-slate-400 max-w-md leading-relaxed">
+                            Architectural integrity meets algorithmic precision. We define the future of BIM consulting.
+                        </p>
+</div>
+</div>
+<div class="lg:col-span-5">
+<div class="glass-panel p-10 border-l border-primary-container/30 shadow-2xl relative">
+<div class="absolute -top-4 -right-4 w-12 h-12 border-t-2 border-r-2 border-primary-container/50"></div>
+<h2 class="text-2xl font-headline font-bold text-white mb-4 uppercase tracking-tight">System Identity</h2>
+<p class="text-slate-300 font-body mb-8 leading-relaxed">
+                            Deploying advanced coordination workflows for large-scale infrastructure and commercial sectors. Our data-first approach eliminates on-site collisions before the first stone is laid.
+                        </p>
+<div class="flex flex-col gap-4">
+<button class="w-full bg-primary-container text-on-primary-container py-4 font-headline font-bold uppercase tracking-widest hover:brightness-110 transition-all flex justify-between px-6 items-center">
+                                Start Technical Audit
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<div class="flex justify-between text-[10px] font-headline text-slate-500 tracking-widest uppercase">
+<span>Ref: BIM_COORD_01</span>
+<span>Auth: AXIS_TECH</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-32 bg-surface-container-low relative">
+<div class="container mx-auto px-8">
+<div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+<div class="max-w-xl">
+<label class="text-primary-container font-headline text-xs tracking-[0.4em] uppercase font-bold mb-4 block">Core Capabilities</label>
+<h2 class="text-5xl font-headline font-bold text-white tracking-tighter">TECHNICAL VERTICALS</h2>
+</div>
+<div class="text-right font-headline text-slate-500 text-sm tracking-tighter">
+                        CORE_ENGINE_SYSTEMS [03]
+                    </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+<!-- Service Card 1 -->
+<div class="group bg-surface p-12 hover:bg-surface-container-high transition-all duration-500 relative overflow-hidden border border-transparent hover:border-primary-container/10">
+<div class="mb-12">
+<span class="material-symbols-outlined text-5xl text-primary-container/40 group-hover:text-primary-container transition-colors duration-500" style="font-variation-settings: 'FILL' 0;">architecture</span>
+</div>
+<h3 class="text-2xl font-headline font-bold text-white mb-6 uppercase tracking-tight">Virtual Construction</h3>
+<p class="text-slate-400 font-body leading-relaxed mb-8">
+                            High-fidelity digital twins that simulate every physical constraint, optimizing labor and material logistics.
+                        </p>
+<div class="w-8 h-1 bg-primary-container/20 group-hover:w-full transition-all duration-500"></div>
+</div>
+<!-- Service Card 2 -->
+<div class="group bg-surface p-12 hover:bg-surface-container-high transition-all duration-500 relative overflow-hidden border border-transparent hover:border-primary-container/10">
+<div class="mb-12">
+<span class="material-symbols-outlined text-5xl text-secondary/40 group-hover:text-secondary transition-colors duration-500" style="font-variation-settings: 'FILL' 0;">database</span>
+</div>
+<h3 class="text-2xl font-headline font-bold text-white mb-6 uppercase tracking-tight">Data Collection</h3>
+<p class="text-slate-400 font-body leading-relaxed mb-8">
+                            LiDAR scanning and photogrammetric ingestion workflows to capture reality with sub-millimeter precision.
+                        </p>
+<div class="w-8 h-1 bg-secondary/20 group-hover:w-full transition-all duration-500"></div>
+</div>
+<!-- Service Card 3 -->
+<div class="group bg-surface p-12 hover:bg-surface-container-high transition-all duration-500 relative overflow-hidden border border-transparent hover:border-primary-container/10">
+<div class="mb-12">
+<span class="material-symbols-outlined text-5xl text-primary-container/40 group-hover:text-primary-container transition-colors duration-500" style="font-variation-settings: 'FILL' 0;">view_in_ar</span>
+</div>
+<h3 class="text-2xl font-headline font-bold text-white mb-6 uppercase tracking-tight">Visualization</h3>
+<p class="text-slate-400 font-body leading-relaxed mb-8">
+                            Advanced VR/AR environments for stakeholder alignment and immersive design validation.
+                        </p>
+<div class="w-8 h-1 bg-primary-container/20 group-hover:w-full transition-all duration-500"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfolio Section -->
+<section class="py-32 bg-surface">
+<div class="container mx-auto px-8">
+<div class="flex items-center gap-4 mb-12">
+<span class="h-px flex-1 bg-outline-variant/20"></span>
+<h2 class="text-xs font-headline font-bold tracking-[0.5em] text-slate-500 uppercase">Selected Operations</h2>
+<span class="h-px flex-1 bg-outline-variant/20"></span>
+</div>
+<div class="flex justify-center gap-12 mb-16">
+<button class="text-primary-container border-b border-primary-container pb-2 font-headline font-bold text-sm uppercase tracking-widest">Infrastructure</button>
+<button class="text-slate-500 hover:text-white transition-colors font-headline font-bold text-sm uppercase tracking-widest">Commercial</button>
+<button class="text-slate-500 hover:text-white transition-colors font-headline font-bold text-sm uppercase tracking-widest">Institutional</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<div class="md:col-span-8 group relative overflow-hidden bg-surface-container h-[500px]">
+<img alt="Large scale infrastructure project" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 opacity-60 group-hover:opacity-100" data-alt="Modern concrete airport terminal interior with technical lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfDhQaRTS0pMhh0T3nZ20FrVoBwC04oQzqWXwBXEg3O7VDBeqUKCowcxHoZMnb7k_W9koEt05G6xv1ObIEJOKumKVtzlkzadY1uwYZjKOIp0cn-ZKBlee-G0Sulz7lpS5Ypkzd0J4ys6fyJbQ3msWiujCaWe61HC0tFS5_aSRD8KVhUqqUBctEnYBtGn8Z_EUZksCq5z7H1euCvCeCA3PxxrMvmGoCXleIJPLJ4m-zNez26mnFb5MqJcipRBoXo7ErZEeqh3pCNQ4Y"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-10 left-10">
+<h4 class="text-3xl font-headline font-black text-white uppercase mb-2">METRO_HUB_ALPHA</h4>
+<p class="text-primary-container font-headline text-xs tracking-widest uppercase">LOD 400 | MULTI-TRADE COORDINATION</p>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-8">
+<div class="flex-1 group relative overflow-hidden bg-surface-container">
+<img alt="Glass skyscraper detail" class="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-100 transition-all duration-500" data-alt="Close up of a futuristic glass and steel building facade" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAto3PBBz4wvXL-jhqcA3glG8J6iWd4rhuOqCAwPOqDUhtn9fTG4gx8EaTccflrQgeEktP4dkNQPVWMdRVoDghBIe3Q30R3mwnf6NkO5w7nc3hUuvAiA7Ue9bqvyVsFxzvTXmt_9REaqiLeHkiaQJo78w2D_r6NkVBOJhHJQ2H4kJ1zODVPtnipdR0MuA36yaEhNs01KNlmsk1TxyWnQDGg_z_w6sE3Y7QPO_5qdfgfrllFERKhpUsld1RdNv5BsVA_fS7yL2-5I-IO"/>
+<div class="absolute inset-0 bg-primary-container/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute bottom-6 left-6">
+<h4 class="text-xl font-headline font-bold text-white uppercase">SKY_TOWER_B</h4>
+<span class="text-[10px] text-slate-400 font-headline uppercase tracking-widest">HVAC Optimized</span>
+</div>
+</div>
+<div class="flex-1 group relative overflow-hidden bg-surface-container">
+<img alt="Modern office interior" class="w-full h-full object-cover grayscale opacity-40 group-hover:opacity-100 transition-all duration-500" data-alt="Interior of a modern high-tech office with complex ceiling systems" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEQeUFYhEEzDAqmb_9ESAclGU1a2PJFZUzS20qBq45os1XLzFhWvw7Oktm4ZBYCUaqW6RmKtv5PSfmo1Xbw2DEW2HikFWcJRA2vCJ6QYr9wwXRR7TUO2bPIhlJTk6zwww_0CQo5mESmBrSNJD80Kf2XzEH3hMLnSlsCkZScnU_ecWe-W1jrjkO3G4L44haNzDcZ_LTBFvU_9_XbGD_SKYvMfalc0KBsexfN2RNmt5SEDc-elCGiVI-BUb4Tbzn5WGx6be-U4DFmY3R"/>
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="absolute bottom-6 left-6">
+<h4 class="text-xl font-headline font-bold text-white uppercase">TECH_LAB_01</h4>
+<span class="text-[10px] text-slate-400 font-headline uppercase tracking-widest">MEP Integration</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="py-32 relative bg-surface-container-lowest overflow-hidden">
+<div class="absolute -right-20 top-1/2 -translate-y-1/2 text-[15rem] font-headline font-black text-white/[0.02] rotate-90 select-none">
+                EXPERTISE
+            </div>
+<div class="container mx-auto px-8 relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<div class="relative">
+<div class="w-full aspect-[4/5] bg-surface-container-high relative overflow-hidden">
+<img alt="Project Manager Portrait" class="w-full h-full object-cover grayscale opacity-80" data-alt="Professional architect looking at technical plans" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYHlyfyLyw6371yi_1FlrJ8E1RxJMThzQaNYdrZ4pTK_XYU5hEfeP36Rjkf7EQ9QLEVdkxhb9brBrA2ytwobiQylJ3PjTL2EIM_So4PyuR268hY1kMTlwHS93kKuoqR_Lf_ZQLPeUWlsFy54uK074j9IDIYlVjHNsdTaeu06CNRmefq1M3cUPUSaVM5XH1HQZ1kh4L_UMxQB4iWj64WbBQmXoSYaoc3k0NBT5s3cIUUSBR7wVNDn5BBKcgQfCC_sR9KxNK41TqqXCC"/>
+</div>
+<div class="absolute -bottom-10 -right-10 glass-panel p-8 border border-white/10 hidden md:block">
+<div class="text-5xl font-headline font-black text-primary-container mb-2">07</div>
+<div class="text-xs font-headline font-bold tracking-[0.2em] text-white uppercase leading-tight">Years of<br/>Precision Mastery</div>
+</div>
+</div>
+<div>
+<label class="text-secondary font-headline text-xs tracking-[0.4em] uppercase font-bold mb-6 block">Human Intelligence</label>
+<h2 class="text-5xl font-headline font-bold text-white mb-8 leading-tight tracking-tighter">THE PROJECT ARCHITECT</h2>
+<p class="text-lg text-slate-300 font-body leading-relaxed mb-10">
+                            Our leadership combines deep field experience with cutting-edge computational design. With over 7 years of expertise in high-stakes project management, we translate complex BIM data into actionable site intelligence.
+                        </p>
+<div class="space-y-6">
+<div class="flex items-center gap-6 group">
+<span class="w-12 h-12 flex items-center justify-center border border-primary-container/30 text-primary-container group-hover:bg-primary-container group-hover:text-on-primary-container transition-all">01</span>
+<span class="text-white font-headline font-bold tracking-widest uppercase">Strategic Implementation</span>
+</div>
+<div class="flex items-center gap-6 group">
+<span class="w-12 h-12 flex items-center justify-center border border-primary-container/30 text-primary-container group-hover:bg-primary-container group-hover:text-on-primary-container transition-all">02</span>
+<span class="text-white font-headline font-bold tracking-widest uppercase">Conflict Resolution Protocol</span>
+</div>
+<div class="flex items-center gap-6 group">
+<span class="w-12 h-12 flex items-center justify-center border border-primary-container/30 text-primary-container group-hover:bg-primary-container group-hover:text-on-primary-container transition-all">03</span>
+<span class="text-white font-headline font-bold tracking-widest uppercase">Global Delivery Standards</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-32 bg-surface relative">
+<div class="container mx-auto px-8 max-w-5xl">
+<div class="text-center mb-20">
+<h2 class="text-4xl font-headline font-bold text-white uppercase tracking-tighter mb-4">Initialize Consultation</h2>
+<div class="h-1 w-20 bg-primary-container mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/10 border border-outline-variant/10">
+<!-- Form Side -->
+<div class="bg-surface-container-low p-12">
+<form class="space-y-8">
+<div class="relative group">
+<input class="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary-container text-white py-3 transition-all peer placeholder-transparent" id="name" placeholder="Name" type="text"/>
+<label class="absolute left-0 top-3 text-slate-500 font-headline text-xs uppercase tracking-widest transition-all peer-focus:-top-4 peer-focus:text-primary-container peer-[:not(:placeholder-shown)]:-top-4" for="name">Full Identity</label>
+</div>
+<div class="relative group">
+<input class="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary-container text-white py-3 transition-all peer placeholder-transparent" id="email" placeholder="Email" type="email"/>
+<label class="absolute left-0 top-3 text-slate-500 font-headline text-xs uppercase tracking-widest transition-all peer-focus:-top-4 peer-focus:text-primary-container peer-[:not(:placeholder-shown)]:-top-4" for="email">Secure Email</label>
+</div>
+<div class="relative group">
+<textarea class="w-full bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary-container text-white py-3 transition-all peer placeholder-transparent" id="message" placeholder="Message" rows="4"></textarea>
+<label class="absolute left-0 top-3 text-slate-500 font-headline text-xs uppercase tracking-widest transition-all peer-focus:-top-4 peer-focus:text-primary-container peer-[:not(:placeholder-shown)]:-top-4" for="message">Project Parameters</label>
+</div>
+<button class="w-full bg-surface-container-highest text-white py-4 font-headline font-bold uppercase tracking-widest hover:bg-primary-container hover:text-on-primary-container transition-all">Transmit Request</button>
+</form>
+</div>
+<!-- Widget Side -->
+<div class="bg-surface-container p-12 flex flex-col justify-between">
+<div>
+<h3 class="text-xl font-headline font-bold text-white mb-6 uppercase tracking-tight">Direct Access</h3>
+<p class="text-slate-400 text-sm leading-relaxed mb-8">
+                                Select a slot for a technical deep-dive with our lead coordinator. 
+                            </p>
+<div class="space-y-4">
+<div class="p-4 bg-surface-container-high border border-primary-container/10 flex justify-between items-center group hover:border-primary-container transition-colors cursor-pointer">
+<span class="text-white font-headline text-sm uppercase">15 Min Discovery</span>
+<span class="material-symbols-outlined text-primary-container">calendar_today</span>
+</div>
+<div class="p-4 bg-surface-container-high border border-primary-container/10 flex justify-between items-center group hover:border-primary-container transition-colors cursor-pointer">
+<span class="text-white font-headline text-sm uppercase">45 Min Strategy</span>
+<span class="material-symbols-outlined text-primary-container">event</span>
+</div>
+</div>
+</div>
+<div class="pt-8">
+<div class="text-[10px] text-slate-600 font-headline uppercase tracking-widest">Global Offices:</div>
+<div class="text-xs text-slate-400 mt-2">LONDON | DUBAI | SINGAPORE</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#0c141e] border-t border-cyan-900/20">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-10 w-full max-w-screen-2xl mx-auto">
+<div class="text-lg font-black text-white font-headline uppercase mb-6 md:mb-0">
+                AXIS <span class="text-cyan-400">BIM</span>
+</div>
+<div class="text-[10px] tracking-[0.2em] font-medium font-headline text-slate-500 uppercase text-center md:text-left">
+                © 2024 THE DIGITAL ARCHITECT. ALL RIGHTS RESERVED. PRECISION MEETS PRESTIGE.
+            </div>
+<div class="flex gap-8 mt-6 md:mt-0">
+<a class="text-slate-500 hover:text-cyan-300 transition-colors text-[10px] tracking-[0.2em] font-medium font-headline uppercase" href="#">Privacy Policy</a>
+<a class="text-slate-500 hover:text-cyan-300 transition-colors text-[10px] tracking-[0.2em] font-medium font-headline uppercase" href="#">Terms of Service</a>
+<a class="text-slate-500 hover:text-cyan-300 transition-colors text-[10px] tracking-[0.2em] font-medium font-headline uppercase" href="#">BIM Standards</a>
+</div>
+</div>
+</footer>
+</body></html>
