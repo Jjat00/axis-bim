@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,6 +7,30 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
+  const colorLayerRef = useRef<HTMLDivElement>(null);
+  const maskPos = useRef({ x: -200, y: -200 });
+  const rafId = useRef<number>(0);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect || !colorLayerRef.current) return;
+    maskPos.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+
+    cancelAnimationFrame(rafId.current);
+    rafId.current = requestAnimationFrame(() => {
+      if (colorLayerRef.current) {
+        colorLayerRef.current.style.maskImage = `radial-gradient(circle 180px at ${maskPos.current.x}px ${maskPos.current.y}px, black 0%, transparent 100%)`;
+        colorLayerRef.current.style.webkitMaskImage = colorLayerRef.current.style.maskImage;
+      }
+    });
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    if (colorLayerRef.current) {
+      colorLayerRef.current.style.maskImage = `radial-gradient(circle 180px at -200px -200px, black 0%, transparent 100%)`;
+      colorLayerRef.current.style.webkitMaskImage = colorLayerRef.current.style.maskImage;
+    }
+  }, []);
 
   useGSAP(
     () => {
@@ -74,11 +98,13 @@ export default function Hero() {
     <section
       id="inicio"
       ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
       {/* Background layer */}
       <div className="absolute inset-0 z-0">
-        {/* Hero image with graceful fallback */}
+        {/* Hero image — grayscale base */}
         <img
           src="/images/hero-bg.png"
           alt="BIM coordination model"
@@ -87,6 +113,24 @@ export default function Hero() {
           width={1920}
           height={1080}
         />
+        {/* Color reveal layer — follows mouse with radial mask */}
+        <div
+          ref={colorLayerRef}
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            maskImage: "radial-gradient(circle 180px at -200px -200px, black 0%, transparent 100%)",
+            WebkitMaskImage: "radial-gradient(circle 180px at -200px -200px, black 0%, transparent 100%)",
+          }}
+        >
+          <img
+            src="/images/hero-bg.png"
+            alt=""
+            className="w-full h-full object-cover opacity-60"
+            width={1920}
+            height={1080}
+            aria-hidden="true"
+          />
+        </div>
 
         {/* Gradient vignette */}
         <div className="absolute inset-0 bg-gradient-to-b from-surface/80 via-transparent to-surface" />
