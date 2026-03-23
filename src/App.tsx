@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import WaveLines from "./components/WaveLines";
 import BimScene from "./components/BimScene";
 import Services from "./components/Services";
 import Portfolio from "./components/Portfolio";
@@ -13,6 +14,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <WaveLines />
         <BimScene />
         <Services />
         <Portfolio />
