@@ -1,4 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface FormState {
   nombre: string;
@@ -69,6 +74,47 @@ function FloatField({
 export default function Contact() {
   const [form, setForm] = useState<FormState>(initialForm);
   const [submitted, setSubmitted] = useState(false);
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".contact-title", {
+          y: 30,
+          autoAlpha: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".contact-title",
+            start: "top 85%",
+          },
+        });
+        gsap.from(".contact-form-side", {
+          x: -40,
+          autoAlpha: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".contact-grid",
+            start: "top 80%",
+          },
+        });
+        gsap.from(".contact-info-side", {
+          x: 40,
+          autoAlpha: 0,
+          duration: 0.7,
+          delay: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".contact-grid",
+            start: "top 80%",
+          },
+        });
+      });
+    },
+    { scope: containerRef }
+  );
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -88,6 +134,7 @@ export default function Contact() {
   return (
     <section
       id="contacto"
+      ref={containerRef}
       className="py-24 md:py-32 bg-surface relative"
     >
       {/* Blueprint grid accent */}
@@ -95,7 +142,7 @@ export default function Contact() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-8">
         {/* Section header */}
-        <div className="text-center mb-14 md:mb-20">
+        <div className="contact-title text-center mb-14 md:mb-20">
           <p className="text-primary-container font-label text-[0.65rem] tracking-[0.4em] uppercase font-bold mb-4">
             Contacto Directo
           </p>
@@ -106,9 +153,9 @@ export default function Contact() {
         </div>
 
         {/* Two-column layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/10 border border-outline-variant/10">
+        <div className="contact-grid grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/10 border border-outline-variant/10">
           {/* Left: Form */}
-          <div className="bg-surface-low p-8 md:p-12">
+          <div className="contact-form-side bg-surface-low p-8 md:p-12">
             {submitted ? (
               <div className="h-full flex flex-col items-center justify-center gap-4 py-12">
                 <span aria-hidden="true" className="material-symbols-outlined text-4xl text-primary-container">
@@ -162,7 +209,7 @@ export default function Contact() {
           </div>
 
           {/* Right: Calendar / info */}
-          <div className="bg-surface-container p-8 md:p-12 flex flex-col justify-between gap-10">
+          <div className="contact-info-side bg-surface-container p-8 md:p-12 flex flex-col justify-between gap-10">
             <div>
               <h3 className="text-lg font-headline font-bold text-on-surface mb-2 uppercase tracking-tight">
                 Acceso Directo

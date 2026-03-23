@@ -1,3 +1,10 @@
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 const capabilities = [
   { num: "01", label: "Gerencia Estratégica de Proyectos" },
   { num: "02", label: "Coordinación y Detección de Interferencias" },
@@ -5,10 +12,69 @@ const capabilities = [
 ];
 
 export default function About() {
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.to(".about-image", {
+          y: -30,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".about-section",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+
+        const counterEl = document.querySelector<HTMLElement>(".about-counter");
+        if (counterEl) {
+          gsap.from(counterEl, {
+            textContent: 0,
+            duration: 1.5,
+            ease: "power1.out",
+            snap: { textContent: 1 },
+            scrollTrigger: {
+              trigger: counterEl,
+              start: "top 80%",
+            },
+          });
+        }
+
+        gsap.from(".about-capability", {
+          x: -30,
+          autoAlpha: 0,
+          stagger: 0.15,
+          duration: 0.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".about-capabilities",
+            start: "top 80%",
+          },
+        });
+
+        gsap.from(".about-text", {
+          y: 30,
+          autoAlpha: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".about-text",
+            start: "top 85%",
+          },
+        });
+      });
+    },
+    { scope: containerRef }
+  );
+
   return (
     <section
       id="nosotros"
-      className="py-24 md:py-32 relative bg-surface-lowest overflow-hidden"
+      ref={containerRef}
+      className="about-section py-24 md:py-32 relative bg-surface-lowest overflow-hidden"
     >
       {/* Watermark text */}
       <div className="absolute -right-8 md:-right-20 top-1/2 -translate-y-1/2 text-[8rem] md:text-[14rem] font-headline font-black text-on-surface/[0.015] select-none pointer-events-none leading-none rotate-90 md:rotate-0">
@@ -27,7 +93,7 @@ export default function About() {
               <img
                 src="/images/director.png"
                 alt="Director de Proyectos BIM"
-                className="w-full h-full object-cover grayscale opacity-80"
+                className="about-image w-full h-full object-cover grayscale opacity-80"
                 loading="lazy"
                 width={800}
                 height={1000}
@@ -41,7 +107,7 @@ export default function About() {
 
             {/* Floating glass badge */}
             <div className="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 glass-panel p-6 md:p-8 border border-on-surface/10 shadow-[0_20px_50px_rgba(0,240,255,0.06)] z-10">
-              <div className="text-4xl md:text-5xl font-headline font-black text-primary-container mb-1 leading-none">
+              <div className="about-counter text-4xl md:text-5xl font-headline font-black text-primary-container mb-1 leading-none">
                 07
               </div>
               <div className="text-[0.6rem] md:text-[0.65rem] font-label font-bold tracking-[0.2em] text-on-surface uppercase leading-tight">
@@ -54,7 +120,7 @@ export default function About() {
           </div>
 
           {/* Right: Text column */}
-          <div className="order-1 lg:order-2">
+          <div className="about-text order-1 lg:order-2">
             {/* Section label */}
             <p className="text-secondary font-label text-[0.65rem] tracking-[0.4em] uppercase font-bold mb-6 block">
               Nuestro Equipo
@@ -72,11 +138,11 @@ export default function About() {
             </p>
 
             {/* Capabilities list */}
-            <div className="space-y-4">
+            <div className="about-capabilities space-y-4">
               {capabilities.map((cap) => (
                 <div
                   key={cap.num}
-                  className="flex items-center gap-5 group cursor-default"
+                  className="about-capability flex items-center gap-5 group cursor-default"
                 >
                   {/* Number badge */}
                   <span className="flex-shrink-0 w-11 h-11 flex items-center justify-center border border-primary-container/30 text-primary-container font-headline font-bold text-sm group-hover:bg-primary-container group-hover:text-on-primary-container transition-all duration-300">

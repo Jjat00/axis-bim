@@ -1,4 +1,65 @@
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 export default function Hero() {
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".hero-badge", {
+          y: 20,
+          autoAlpha: 0,
+          duration: 0.6,
+          delay: 0.3,
+          ease: "power2.out",
+        });
+        gsap.from(".hero-line", {
+          y: 60,
+          autoAlpha: 0,
+          stagger: 0.15,
+          duration: 0.8,
+          delay: 0.4,
+          ease: "power3.out",
+        });
+        gsap.from(".hero-subtitle", {
+          y: 30,
+          autoAlpha: 0,
+          duration: 0.6,
+          delay: 0.5,
+          ease: "power2.out",
+        });
+        gsap.from(".hero-cta", {
+          y: 20,
+          autoAlpha: 0,
+          stagger: 0.1,
+          duration: 0.5,
+          delay: 0.7,
+          ease: "power2.out",
+        });
+        gsap.from(".hero-panel", {
+          x: 60,
+          autoAlpha: 0,
+          duration: 0.8,
+          delay: 0.4,
+          ease: "power2.out",
+        });
+        gsap.from(".scroll-indicator", {
+          autoAlpha: 0,
+          duration: 0.5,
+          delay: 1.2,
+          ease: "power2.out",
+        });
+      });
+    },
+    { scope: containerRef }
+  );
+
   const scrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     document.getElementById("contacto")?.scrollIntoView({ behavior: "smooth" });
@@ -12,6 +73,7 @@ export default function Hero() {
   return (
     <section
       id="inicio"
+      ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
     >
       {/* Background layer */}
@@ -40,7 +102,7 @@ export default function Hero() {
           {/* Left: Main headline block */}
           <div className="lg:col-span-7 flex flex-col justify-center py-20 lg:py-0">
             {/* Badge */}
-            <div className="mb-4 inline-flex items-center gap-3 self-start px-4 py-1.5 bg-surface-container border border-primary-container/20">
+            <div className="hero-badge mb-4 inline-flex items-center gap-3 self-start px-4 py-1.5 bg-surface-container border border-primary-container/20">
               <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse" />
               <span className="text-[0.6rem] uppercase tracking-[0.35em] font-headline text-primary-container font-semibold">
                 Virtual Design &amp; BIM Coordination
@@ -49,19 +111,19 @@ export default function Hero() {
 
             {/* Main headline */}
             <h1 className="font-headline font-black leading-none tracking-tighter text-on-surface mb-6">
-              <span className="block text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl">
+              <span className="hero-line block text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl">
                 DISEÑO VIRTUAL
               </span>
-              <span className="block text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl text-primary-container mt-1">
+              <span className="hero-line block text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl text-primary-container mt-1">
                 &amp; COORDINACIÓN
               </span>
-              <span className="block text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl mt-1">
+              <span className="hero-line block text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl mt-1">
                 BIM
               </span>
             </h1>
 
             {/* Divider + subtitle */}
-            <div className="flex items-start gap-5 mb-8 max-w-xl">
+            <div className="hero-subtitle flex items-start gap-5 mb-8 max-w-xl">
               <div className="flex-shrink-0 mt-2 h-px w-16 bg-primary-container/50" />
               <p className="text-base md:text-lg font-body text-on-surface-variant leading-relaxed">
                 Reducimos costos y eliminamos errores en obra mediante
@@ -75,7 +137,7 @@ export default function Hero() {
               <a
                 href="#contacto"
                 onClick={scrollToContact}
-                className="inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary-container px-7 py-3.5 font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-tint active:scale-95 transition-colors duration-200"
+                className="hero-cta inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary-container px-7 py-3.5 font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-tint active:scale-95 transition-colors duration-200"
               >
                 Agendar Consultoría
                 <span aria-hidden="true" className="material-symbols-outlined text-[1.1rem]">
@@ -85,7 +147,7 @@ export default function Hero() {
               <a
                 href="#portafolio"
                 onClick={scrollToPortfolio}
-                className="inline-flex items-center justify-center gap-2 border border-outline-variant/40 text-on-surface px-7 py-3.5 font-headline font-bold text-sm uppercase tracking-widest hover:bg-primary-container/5 hover:border-primary-container/30 active:scale-95 transition-colors duration-200"
+                className="hero-cta inline-flex items-center justify-center gap-2 border border-outline-variant/40 text-on-surface px-7 py-3.5 font-headline font-bold text-sm uppercase tracking-widest hover:bg-primary-container/5 hover:border-primary-container/30 active:scale-95 transition-colors duration-200"
               >
                 Ver Portafolio
               </a>
@@ -93,7 +155,7 @@ export default function Hero() {
           </div>
 
           {/* Right: Glass info panel */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end py-8 lg:py-0">
+          <div className="hero-panel lg:col-span-5 flex justify-center lg:justify-end py-8 lg:py-0">
             <div className="relative w-full max-w-md">
               {/* Corner accent decoration */}
               <div className="absolute -top-3 -right-3 w-12 h-12 border-t-2 border-r-2 border-primary-container/40 pointer-events-none z-10" />
@@ -158,7 +220,7 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
+      <div className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-40">
         <span className="text-[0.55rem] uppercase tracking-[0.3em] font-label text-outline">
           Scroll
         </span>

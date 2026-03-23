@@ -1,4 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type FilterTab = "Infraestructura" | "Comercial" | "Institucional";
 
@@ -240,12 +245,55 @@ function ProjectModal({
 export default function Portfolio() {
   const [activeTab, setActiveTab] = useState<FilterTab>("Infraestructura");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".portfolio-label", {
+          y: 30,
+          autoAlpha: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".portfolio-label",
+            start: "top 85%",
+          },
+        });
+        gsap.from(".portfolio-tab", {
+          y: 20,
+          autoAlpha: 0,
+          stagger: 0.1,
+          duration: 0.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".portfolio-tab",
+            start: "top 85%",
+          },
+        });
+        gsap.from(".portfolio-card", {
+          y: 40,
+          autoAlpha: 0,
+          stagger: 0.2,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".portfolio-grid",
+            start: "top 80%",
+            once: true,
+          },
+        });
+      });
+    },
+    { scope: containerRef }
+  );
 
   return (
-    <section id="portafolio" className="py-24 md:py-32 bg-surface">
+    <section id="portafolio" ref={containerRef} className="py-24 md:py-32 bg-surface">
       <div className="max-w-screen-2xl mx-auto px-6 md:px-8">
         {/* Section label */}
-        <div className="flex items-center gap-5 mb-12">
+        <div className="portfolio-label flex items-center gap-5 mb-12">
           <span className="h-px flex-1 bg-outline-variant/20" />
           <h2 className="text-[0.65rem] font-label font-bold tracking-[0.5em] text-outline uppercase">
             Proyectos Seleccionados
@@ -259,7 +307,7 @@ export default function Portfolio() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`font-label font-bold text-xs uppercase tracking-widest pb-2 transition-all duration-300 ${
+              className={`portfolio-tab font-label font-bold text-xs uppercase tracking-widest pb-2 transition-all duration-300 ${
                 activeTab === tab
                   ? "text-primary-container border-b border-primary-container"
                   : "text-outline hover:text-on-surface"
@@ -271,10 +319,10 @@ export default function Portfolio() {
         </div>
 
         {/* Project grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+        <div className="portfolio-grid grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
           {/* Large card — 8 columns */}
           <div
-            className="md:col-span-8 group relative overflow-hidden bg-surface-container h-72 md:h-[500px] cursor-pointer"
+            className="portfolio-card md:col-span-8 group relative overflow-hidden bg-surface-container h-72 md:h-[500px] cursor-pointer"
             onClick={() => setSelectedProject(projects[0])}
           >
             <ProjectImage src={projects[0].image} alt={projects[0].title}>
@@ -315,7 +363,7 @@ export default function Portfolio() {
             {projects.slice(1).map((project) => (
               <div
                 key={project.title}
-                className="group relative overflow-hidden bg-surface-container flex-1 h-52 md:h-auto md:min-h-[232px] cursor-pointer"
+                className="portfolio-card group relative overflow-hidden bg-surface-container flex-1 h-52 md:h-auto md:min-h-[232px] cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
                 <ProjectImage src={project.image} alt={project.title}>

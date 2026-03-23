@@ -1,3 +1,10 @@
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 interface Service {
   icon: string;
   title: string;
@@ -48,7 +55,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
   const colors = accentColors[service.accent];
 
   return (
-    <article className="group bg-surface p-10 md:p-12 hover:bg-surface-high transition-all duration-500 relative overflow-hidden border border-transparent hover:border-primary-container/10 flex flex-col">
+    <article className="service-card group bg-surface p-10 md:p-12 hover:bg-surface-high transition-all duration-500 relative overflow-hidden border border-transparent hover:border-primary-container/10 flex flex-col">
       {/* Index label */}
       <div className="absolute top-6 right-6 font-headline text-[0.6rem] tracking-widest text-outline/40 font-bold">
         {String(index + 1).padStart(2, "0")}
@@ -84,9 +91,45 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 }
 
 export default function Services() {
+  const containerRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from(".service-header", {
+          y: 40,
+          autoAlpha: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".service-header",
+            start: "top 85%",
+          },
+        });
+        gsap.set(".service-card", { autoAlpha: 0, y: 50 });
+        ScrollTrigger.batch(".service-card", {
+          onEnter: (elements) =>
+            gsap.to(elements, {
+              y: 0,
+              autoAlpha: 1,
+              stagger: 0.15,
+              duration: 0.6,
+              ease: "power2.out",
+              overwrite: true,
+            }),
+          start: "top 85%",
+          once: true,
+        });
+      });
+    },
+    { scope: containerRef }
+  );
+
   return (
     <section
       id="servicios"
+      ref={containerRef}
       className="py-24 md:py-32 bg-surface-low relative"
     >
       {/* Subtle blueprint grid */}
@@ -94,7 +137,7 @@ export default function Services() {
 
       <div className="relative z-10 max-w-screen-2xl mx-auto px-6 md:px-8">
         {/* Section header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-20 gap-8">
+        <div className="service-header flex flex-col md:flex-row justify-between items-end mb-16 md:mb-20 gap-8">
           <div className="max-w-xl">
             <p className="text-primary-container font-label text-[0.65rem] tracking-[0.4em] uppercase font-bold mb-4 block">
               Servicios Especializados
