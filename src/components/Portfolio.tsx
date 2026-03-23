@@ -80,8 +80,10 @@ function ProjectImage({
       <img
         src={src}
         alt={alt}
-        className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-70 transition-all duration-700"
+        className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-70 transition-[filter,opacity] duration-700"
         loading="lazy"
+        width={1200}
+        height={800}
       />
       {children}
     </div>
@@ -109,6 +111,8 @@ function ProjectModal({
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8"
       onClick={onClose}
     >
@@ -123,9 +127,10 @@ function ProjectModal({
         {/* Close button */}
         <button
           onClick={onClose}
+          aria-label="Cerrar"
           className="absolute top-4 right-4 z-20 w-10 h-10 flex items-center justify-center bg-surface-highest/80 text-on-surface hover:text-primary-container hover:bg-surface-highest transition-colors"
         >
-          <span className="material-symbols-outlined text-xl">close</span>
+          <span aria-hidden="true" className="material-symbols-outlined text-xl">close</span>
         </button>
 
         {/* Image */}
@@ -134,6 +139,8 @@ function ProjectModal({
             src={project.image}
             alt={project.title}
             className="w-full h-full object-cover"
+            width={1200}
+            height={800}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-surface-container via-transparent to-transparent" />
 
@@ -211,10 +218,10 @@ function ProjectModal({
                         ?.scrollIntoView({ behavior: "smooth" });
                     }, 300);
                   }}
-                  className="w-full flex justify-between items-center bg-primary-container text-on-primary-container py-3.5 px-5 font-headline font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all duration-200"
+                  className="w-full flex justify-between items-center bg-primary-container text-on-primary-container py-3.5 px-5 font-headline font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-colors duration-200"
                 >
                   Consultar Proyecto
-                  <span className="material-symbols-outlined text-[1rem]">
+                  <span aria-hidden="true" className="material-symbols-outlined text-[1rem]">
                     arrow_forward
                   </span>
                 </a>
@@ -294,7 +301,7 @@ export default function Portfolio() {
 
             {/* View detail hint */}
             <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              <span className="material-symbols-outlined text-primary-container text-2xl">
+              <span aria-hidden="true" className="material-symbols-outlined text-primary-container text-2xl">
                 open_in_full
               </span>
             </div>
@@ -334,7 +341,7 @@ export default function Portfolio() {
 
                 {/* View detail hint */}
                 <div className="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <span className="material-symbols-outlined text-primary-container text-lg">
+                  <span aria-hidden="true" className="material-symbols-outlined text-primary-container text-lg">
                     open_in_full
                   </span>
                 </div>
@@ -356,9 +363,9 @@ export default function Portfolio() {
                 .getElementById("contacto")
                 ?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="inline-flex items-center gap-3 border border-outline-variant/30 text-on-surface-variant px-8 py-3.5 font-label font-bold text-xs uppercase tracking-widest hover:border-primary-container/40 hover:text-primary hover:bg-primary-container/5 transition-all duration-300"
+            className="inline-flex items-center gap-3 border border-outline-variant/30 text-on-surface-variant px-8 py-3.5 font-label font-bold text-xs uppercase tracking-widest hover:border-primary-container/40 hover:text-primary hover:bg-primary-container/5 transition-colors duration-300"
           >
-            <span className="material-symbols-outlined text-[1rem]">
+            <span aria-hidden="true" className="material-symbols-outlined text-[1rem]">
               folder_open
             </span>
             Ver Portafolio Completo

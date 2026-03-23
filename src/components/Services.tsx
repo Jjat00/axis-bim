@@ -57,6 +57,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       {/* Icon */}
       <div className="mb-10">
         <span
+          aria-hidden="true"
           className={`material-symbols-outlined text-5xl transition-colors duration-500 ${colors.icon}`}
           style={{ fontVariationSettings: "'FILL' 0, 'wght' 200, 'opsz' 48" }}
         >

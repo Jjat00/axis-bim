@@ -22,6 +22,8 @@ export default function Hero() {
           alt="BIM coordination model"
           className="w-full h-full object-cover opacity-25 grayscale"
           loading="eager"
+          width={1920}
+          height={1080}
         />
 
         {/* Gradient vignette */}
@@ -73,17 +75,17 @@ export default function Hero() {
               <a
                 href="#contacto"
                 onClick={scrollToContact}
-                className="inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary-container px-7 py-3.5 font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-tint active:scale-95 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary-container px-7 py-3.5 font-headline font-bold text-sm uppercase tracking-widest hover:bg-surface-tint active:scale-95 transition-colors duration-200"
               >
                 Agendar Consultoría
-                <span className="material-symbols-outlined text-[1.1rem]">
+                <span aria-hidden="true" className="material-symbols-outlined text-[1.1rem]">
                   arrow_forward
                 </span>
               </a>
               <a
                 href="#portafolio"
                 onClick={scrollToPortfolio}
-                className="inline-flex items-center justify-center gap-2 border border-outline-variant/40 text-on-surface px-7 py-3.5 font-headline font-bold text-sm uppercase tracking-widest hover:bg-primary-container/5 hover:border-primary-container/30 active:scale-95 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 border border-outline-variant/40 text-on-surface px-7 py-3.5 font-headline font-bold text-sm uppercase tracking-widest hover:bg-primary-container/5 hover:border-primary-container/30 active:scale-95 transition-colors duration-200"
               >
                 Ver Portafolio
               </a>
@@ -142,10 +144,10 @@ export default function Hero() {
                 <a
                   href="#contacto"
                   onClick={scrollToContact}
-                  className="w-full flex justify-between items-center bg-primary-container text-on-primary-container py-4 px-6 font-headline font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all duration-200"
+                  className="w-full flex justify-between items-center bg-primary-container text-on-primary-container py-4 px-6 font-headline font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-colors duration-200"
                 >
                   Iniciar Auditoría Técnica
-                  <span className="material-symbols-outlined text-[1.1rem]">
+                  <span aria-hidden="true" className="material-symbols-outlined text-[1.1rem]">
                     arrow_forward
                   </span>
                 </a>

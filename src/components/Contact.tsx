@@ -35,12 +35,20 @@ function FloatField({
   multiline = false,
   rows = 4,
 }: FloatFieldProps) {
+  const autocompleteMap: Record<keyof FormState, string> = {
+    nombre: "name",
+    empresa: "organization",
+    email: "email",
+    mensaje: "off",
+  };
+
   const sharedProps = {
     id,
     name: id,
     placeholder: label,
     value,
     onChange,
+    autoComplete: autocompleteMap[id],
     className: "float-input",
   };
 
@@ -103,7 +111,7 @@ export default function Contact() {
           <div className="bg-surface-low p-8 md:p-12">
             {submitted ? (
               <div className="h-full flex flex-col items-center justify-center gap-4 py-12">
-                <span className="material-symbols-outlined text-4xl text-primary-container">
+                <span aria-hidden="true" className="material-symbols-outlined text-4xl text-primary-container">
                   check_circle
                 </span>
                 <p className="font-headline font-bold text-on-surface text-lg uppercase tracking-tight text-center">
@@ -145,7 +153,7 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full bg-surface-highest text-on-surface py-4 font-headline font-bold uppercase tracking-widest text-sm hover:bg-primary-container hover:text-on-primary-container active:scale-95 transition-all duration-300"
+                  className="w-full bg-surface-highest text-on-surface py-4 font-headline font-bold uppercase tracking-widest text-sm hover:bg-primary-container hover:text-on-primary-container active:scale-95 transition-colors duration-300"
                 >
                   Enviar Solicitud
                 </button>
@@ -166,7 +174,7 @@ export default function Contact() {
 
               {/* Booking options */}
               <div className="space-y-3">
-                <div className="flex justify-between items-center p-4 bg-surface-high border border-primary-container/10 hover:border-primary-container cursor-pointer group transition-all duration-300">
+                <button type="button" className="w-full flex justify-between items-center p-4 bg-surface-high border border-primary-container/10 hover:border-primary-container cursor-pointer group transition-colors duration-300">
                   <div>
                     <p className="text-on-surface font-label text-sm uppercase font-bold tracking-wide group-hover:text-primary-container transition-colors">
                       15 Min Descubrimiento
@@ -175,12 +183,12 @@ export default function Contact() {
                       Llamada inicial gratuita
                     </p>
                   </div>
-                  <span className="material-symbols-outlined text-primary-container text-xl">
+                  <span aria-hidden="true" className="material-symbols-outlined text-primary-container text-xl">
                     calendar_today
                   </span>
-                </div>
+                </button>
 
-                <div className="flex justify-between items-center p-4 bg-surface-high border border-primary-container/10 hover:border-primary-container cursor-pointer group transition-all duration-300">
+                <button type="button" className="w-full flex justify-between items-center p-4 bg-surface-high border border-primary-container/10 hover:border-primary-container cursor-pointer group transition-colors duration-300">
                   <div>
                     <p className="text-on-surface font-label text-sm uppercase font-bold tracking-wide group-hover:text-primary-container transition-colors">
                       45 Min Estrategia
@@ -189,10 +197,10 @@ export default function Contact() {
                       Revisión técnica en profundidad
                     </p>
                   </div>
-                  <span className="material-symbols-outlined text-primary-container text-xl">
+                  <span aria-hidden="true" className="material-symbols-outlined text-primary-container text-xl">
                     event
                   </span>
-                </div>
+                </button>
               </div>
             </div>
 
@@ -202,7 +210,7 @@ export default function Contact() {
                 Presencia Global
               </p>
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-outline/40 text-base">
+                <span aria-hidden="true" className="material-symbols-outlined text-outline/40 text-base">
                   location_on
                 </span>
                 <p className="text-sm text-on-surface-variant font-label tracking-widest uppercase">

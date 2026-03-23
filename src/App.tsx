@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import BimScene from "./components/BimScene";
 import Services from "./components/Services";
 import Portfolio from "./components/Portfolio";
 import About from "./components/About";
@@ -12,6 +13,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <BimScene />
         <Services />
         <Portfolio />
         <About />

@@ -29,6 +29,8 @@ export default function About() {
                 alt="Director de Proyectos BIM"
                 className="w-full h-full object-cover grayscale opacity-80"
                 loading="lazy"
+                width={800}
+                height={1000}
               />
 
               {/* Technical label in corner */}

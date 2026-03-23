@@ -73,7 +73,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`font-label text-[0.7rem] tracking-[0.25em] uppercase font-bold transition-colors duration-300 pb-1 ${
+                className={`font-label text-[0.7rem] tracking-[0.25em] uppercase font-bold transition-colors duration-300 pb-1 focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${
                   isActive
                     ? "text-primary-container border-b border-primary-container"
                     : "text-on-surface-variant hover:text-primary"
@@ -90,7 +90,7 @@ export default function Navbar() {
           <a
             href="#contacto"
             onClick={(e) => handleNavClick(e, "#contacto")}
-            className="hidden md:inline-flex items-center gap-2 bg-primary-container text-on-primary-container px-5 py-2.5 font-headline font-bold text-xs uppercase tracking-widest hover:bg-surface-tint active:scale-95 transition-all duration-200"
+            className="hidden md:inline-flex items-center gap-2 bg-primary-container text-on-primary-container px-5 py-2.5 font-headline font-bold text-xs uppercase tracking-widest hover:bg-surface-tint active:scale-95 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
           >
             Agendar Consultoría
           </a>
