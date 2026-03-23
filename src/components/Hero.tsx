@@ -38,7 +38,7 @@ export default function Hero() {
           {/* Left: Main headline block */}
           <div className="lg:col-span-7 flex flex-col justify-center py-20 lg:py-0">
             {/* Badge */}
-            <div className="mb-6 inline-flex items-center gap-3 self-start px-4 py-1.5 bg-surface-container border border-primary-container/20">
+            <div className="mb-4 inline-flex items-center gap-3 self-start px-4 py-1.5 bg-surface-container border border-primary-container/20">
               <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse" />
               <span className="text-[0.6rem] uppercase tracking-[0.35em] font-headline text-primary-container font-semibold">
                 Virtual Design &amp; BIM Coordination
@@ -46,20 +46,20 @@ export default function Hero() {
             </div>
 
             {/* Main headline */}
-            <h1 className="font-headline font-black leading-none tracking-tighter text-on-surface mb-8">
-              <span className="block text-5xl sm:text-6xl md:text-7xl xl:text-8xl">
+            <h1 className="font-headline font-black leading-none tracking-tighter text-on-surface mb-6">
+              <span className="block text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl">
                 DISEÑO VIRTUAL
               </span>
-              <span className="block text-5xl sm:text-6xl md:text-7xl xl:text-8xl text-primary-container mt-1">
+              <span className="block text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl text-primary-container mt-1">
                 &amp; COORDINACIÓN
               </span>
-              <span className="block text-5xl sm:text-6xl md:text-7xl xl:text-8xl mt-1">
+              <span className="block text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl mt-1">
                 BIM
               </span>
             </h1>
 
             {/* Divider + subtitle */}
-            <div className="flex items-start gap-5 mb-10 max-w-xl">
+            <div className="flex items-start gap-5 mb-8 max-w-xl">
               <div className="flex-shrink-0 mt-2 h-px w-16 bg-primary-container/50" />
               <p className="text-base md:text-lg font-body text-on-surface-variant leading-relaxed">
                 Reducimos costos y eliminamos errores en obra mediante
@@ -97,7 +97,7 @@ export default function Hero() {
               <div className="absolute -top-3 -right-3 w-12 h-12 border-t-2 border-r-2 border-primary-container/40 pointer-events-none z-10" />
               <div className="absolute -bottom-3 -left-3 w-8 h-8 border-b border-l border-outline-variant/30 pointer-events-none z-10" />
 
-              <div className="glass-panel p-8 md:p-10 border-l-2 border-primary-container/30 shadow-[0_20px_50px_rgba(0,240,255,0.05)]">
+              <div className="glass-panel p-6 md:p-8 border-l-2 border-primary-container/30 shadow-[0_20px_50px_rgba(0,240,255,0.05)]">
                 {/* Tag */}
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-[0.6rem] uppercase tracking-[0.3em] font-headline text-outline font-semibold">
@@ -111,7 +111,7 @@ export default function Hero() {
                 <h2 className="text-xl font-headline font-bold text-on-surface mb-3 uppercase tracking-tight">
                   Identidad del Sistema
                 </h2>
-                <p className="text-sm font-body text-on-surface-variant leading-relaxed mb-8">
+                <p className="text-sm font-body text-on-surface-variant leading-relaxed mb-6">
                   Desplegamos flujos de coordinación avanzados para
                   infraestructura y sector comercial a gran escala. Nuestro
                   enfoque elimina colisiones antes de que se coloque la primera
@@ -119,7 +119,7 @@ export default function Hero() {
                 </p>
 
                 {/* Stats row */}
-                <div className="grid grid-cols-3 gap-px bg-outline-variant/10 mb-8">
+                <div className="grid grid-cols-3 gap-px bg-outline-variant/10 mb-6">
                   {[
                     { value: "07+", label: "Años" },
                     { value: "LOD 400", label: "Estándar" },
