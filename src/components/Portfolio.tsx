@@ -363,7 +363,7 @@ export default function Portfolio() {
             {projects.slice(1).map((project) => (
               <div
                 key={project.title}
-                className="portfolio-card group relative overflow-hidden bg-surface-container flex-1 h-52 md:h-auto md:min-h-[232px] cursor-pointer"
+                className="portfolio-card group relative overflow-hidden bg-surface-container h-52 md:flex-1 md:h-auto md:min-h-[232px] cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
                 <ProjectImage src={project.image} alt={project.title}>
