@@ -108,7 +108,7 @@ export default function Process() {
           {steps.map((step) => (
             <article
               key={step.num}
-              className="process-step bg-surface p-8 md:p-10 relative group hover:bg-surface-high transition-colors duration-500"
+              className="process-step bg-surface p-8 md:p-10 relative group hover:bg-surface-high transition-colors duration-500 flex flex-col"
             >
               {/* Step number */}
               <div className="absolute top-6 right-6 font-headline text-[0.6rem] tracking-widest text-outline/30 font-bold">
@@ -135,7 +135,7 @@ export default function Process() {
               </h3>
 
               {/* Description */}
-              <p className="text-sm font-body text-on-surface-variant leading-relaxed mb-6">
+              <p className="text-sm font-body text-on-surface-variant leading-relaxed mb-6 flex-1">
                 {step.description}
               </p>
 
