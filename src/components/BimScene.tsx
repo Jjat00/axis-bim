@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useEffect, Suspense } from "react";
+import { useState, useRef, useMemo, useEffect, Suspense, useCallback } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls, Float } from "@react-three/drei";
 import * as THREE from "three";
@@ -573,7 +573,14 @@ function UnifiedScene({
       {mode === "bim" ? (
         <BimBuilding activeLayers={activeLayers} />
       ) : (
-        <Suspense fallback={null}>
+        <Suspense
+          fallback={
+            <mesh>
+              <boxGeometry args={[1.2, 1.2, 1.2]} />
+              <meshStandardMaterial color="#00f0ff" wireframe transparent opacity={0.3} />
+            </mesh>
+          }
+        >
           <PointCloudMesh pointSize={pointSize} colorMode={colorMode} />
         </Suspense>
       )}
@@ -582,10 +589,15 @@ function UnifiedScene({
         enablePan
         enableZoom
         enableRotate
+        enableDamping
         minPolarAngle={Math.PI / 6}
         maxPolarAngle={Math.PI / 1.8}
         minDistance={3}
         maxDistance={14}
+        touches={{
+          ONE: THREE.TOUCH.ROTATE,
+          TWO: THREE.TOUCH.DOLLY_PAN,
+        }}
       />
     </>
   );
@@ -775,6 +787,12 @@ export default function BimScene() {
   );
   const [pointSize, setPointSize] = useState(0.015);
   const [colorMode, setColorMode] = useState<ColorMode>("original");
+  const [canvasInteractive, setCanvasInteractive] = useState(false);
+  const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 1023px)").matches;
+
+  const handleCanvasTap = useCallback(() => {
+    if (isMobile && !canvasInteractive) setCanvasInteractive(true);
+  }, [isMobile, canvasInteractive]);
 
   const toggleLayer = (id: string) => {
     setActiveLayers((prev) => {
@@ -813,14 +831,14 @@ export default function BimScene() {
 
       <div className="relative z-10 max-w-screen-2xl mx-auto px-6 md:px-8">
         {/* Header */}
-        <div className="text-center mb-4">
+        <div className="mb-4 max-w-2xl">
           <p className="text-primary-container font-label text-[0.65rem] tracking-[0.4em] uppercase font-bold mb-4">
             {cfg.label}
           </p>
           <h2 className="text-3xl md:text-4xl font-headline font-bold text-on-surface tracking-tighter mb-4">
             {cfg.title}
           </h2>
-          <p className="text-on-surface-variant font-body max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
+          <p className="text-on-surface-variant font-body leading-relaxed text-[1.0625rem]">
             {cfg.description}
           </p>
         </div>
@@ -830,8 +848,8 @@ export default function BimScene() {
           {(["bim", "pointcloud"] as ViewerMode[]).map((m) => (
             <button
               key={m}
-              onClick={() => setMode(m)}
-              className={`font-label font-bold text-xs uppercase tracking-widest pb-2 transition-colors duration-300 ${
+              onClick={() => { setMode(m); setCanvasInteractive(false); }}
+              className={`font-label font-bold text-xs uppercase tracking-widest min-h-[44px] px-4 pb-2 flex items-center transition-colors duration-300 ${
                 mode === m
                   ? "text-primary-container border-b border-primary-container"
                   : "text-outline hover:text-on-surface"
@@ -844,23 +862,41 @@ export default function BimScene() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
           {/* Canvas */}
-          <div className="lg:col-span-8 relative h-[400px] md:h-[500px]">
+          <div className="lg:col-span-8 relative h-[320px] md:h-[500px]">
             <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-primary-container/30 z-10 pointer-events-none" />
             <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-primary-container/30 z-10 pointer-events-none" />
 
-            <Canvas
-              camera={{ position: [6, 4, 6], fov: 35 }}
-              gl={{ antialias: true, alpha: true }}
-              style={{ background: "transparent" }}
+            <div
+              className="w-full h-full"
+              style={{ touchAction: isMobile && !canvasInteractive ? "pan-y" : "none" }}
+              onClick={handleCanvasTap}
             >
-              <color attach="background" args={["#070f19"]} />
-              <UnifiedScene
-                mode={mode}
-                activeLayers={activeLayers}
-                pointSize={pointSize}
-                colorMode={colorMode}
-              />
-            </Canvas>
+              <Canvas
+                camera={{ position: [6, 4, 6], fov: 35 }}
+                gl={{ antialias: true, alpha: true }}
+                style={{ background: "transparent", pointerEvents: isMobile && !canvasInteractive ? "none" : "auto" }}
+              >
+                <color attach="background" args={["#070f19"]} />
+                <UnifiedScene
+                  mode={mode}
+                  activeLayers={activeLayers}
+                  pointSize={pointSize}
+                  colorMode={colorMode}
+                />
+              </Canvas>
+            </div>
+
+            {/* Mobile touch-to-interact overlay */}
+            {isMobile && !canvasInteractive && (
+              <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                <div className="glass-panel px-4 py-2.5 flex items-center gap-2 border border-primary-container/20">
+                  <span aria-hidden="true" className="material-symbols-outlined text-primary-container text-base">touch_app</span>
+                  <span className="text-[0.65rem] font-label font-bold uppercase tracking-widest text-on-surface-variant">
+                    Toca para interactuar
+                  </span>
+                </div>
+              </div>
+            )}
 
             <div className="absolute bottom-3 left-3 font-label text-[0.5rem] tracking-[0.3em] uppercase text-outline/40 pointer-events-none">
               {cfg.techLabel}

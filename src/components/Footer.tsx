@@ -29,7 +29,7 @@ export default function Footer() {
   );
 
   return (
-    <footer ref={containerRef} className="bg-surface-lowest border-t border-primary-container/10">
+    <footer ref={containerRef} className="bg-surface-lowest border-t border-secondary/15">
       <div className="max-w-screen-2xl mx-auto px-6 md:px-12 py-8 md:py-10">
         <div className="footer-content flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Logo */}

@@ -62,6 +62,7 @@ body {
   background-color: #0c141e;
   color: #dbe3f2;
   font-family: "Manrope", sans-serif;
+  font-size: 1.0625rem; /* 17px — optimized for dark theme readability */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

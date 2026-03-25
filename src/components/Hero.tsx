@@ -106,7 +106,7 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         {/* Hero image — grayscale base */}
         <img
-          src="/images/hero-bg.png"
+          src="/images/hero-bg.jpg"
           alt="BIM coordination model"
           className="w-full h-full object-cover opacity-25 grayscale"
           loading="eager"
@@ -123,7 +123,7 @@ export default function Hero() {
           }}
         >
           <img
-            src="/images/hero-bg.png"
+            src="/images/hero-bg.jpg"
             alt=""
             className="w-full h-full object-cover opacity-60"
             width={1920}
@@ -195,6 +195,25 @@ export default function Hero() {
               >
                 Ver Portafolio
               </a>
+            </div>
+
+            {/* Trust signals */}
+            <div className="hero-cta mt-10 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <span className="text-[0.55rem] font-label uppercase tracking-[0.25em] text-outline/50">
+                Certificados en
+              </span>
+              {[
+                "Autodesk Certified Professional",
+                "buildingSMART",
+                "BIM Forum Colombia",
+              ].map((cert) => (
+                <span
+                  key={cert}
+                  className="text-[0.6rem] font-label font-bold uppercase tracking-widest text-on-surface-variant/60 hover:text-primary-container/80 transition-colors duration-300"
+                >
+                  {cert}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -268,7 +287,7 @@ export default function Hero() {
         <span className="text-[0.55rem] uppercase tracking-[0.3em] font-label text-outline">
           Scroll
         </span>
-        <div className="w-px h-12 bg-gradient-to-b from-primary-container/60 to-transparent" />
+        <div className="w-px h-12 bg-gradient-to-b from-secondary/60 to-transparent" />
       </div>
     </section>
   );

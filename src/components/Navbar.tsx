@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 const navLinks = [
   { label: "Inicio", href: "#inicio" },
@@ -12,6 +12,39 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("inicio");
+  const mobileMenuRef = useRef<HTMLElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+
+  // Focus trap for mobile menu
+  const handleMenuKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (!mobileOpen || e.key !== "Tab") return;
+    const menu = mobileMenuRef.current;
+    if (!menu) return;
+    const focusable = menu.querySelectorAll<HTMLElement>("a, button");
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      // Focus first menu link when opened
+      requestAnimationFrame(() => {
+        const firstLink = mobileMenuRef.current?.querySelector<HTMLElement>("a");
+        firstLink?.focus();
+      });
+    } else if (hamburgerRef.current && document.activeElement !== hamburgerRef.current) {
+      // Return focus to hamburger when closed (only if focus was in menu)
+      hamburgerRef.current.focus();
+    }
+  }, [mobileOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -97,6 +130,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
+            ref={hamburgerRef}
             onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5"
             aria-label="Abrir menú"
@@ -127,7 +161,7 @@ export default function Navbar() {
           mobileOpen ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
-        <nav className="glass-nav px-6 pt-2 pb-6 flex flex-col gap-1">
+        <nav ref={mobileMenuRef} onKeyDown={handleMenuKeyDown} className="glass-nav px-6 pt-2 pb-6 flex flex-col gap-1">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.replace("#", "");
             return (

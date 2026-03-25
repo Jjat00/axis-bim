@@ -29,6 +29,7 @@ interface FloatFieldProps {
   ) => void;
   multiline?: boolean;
   rows?: number;
+  required?: boolean;
 }
 
 function FloatField({
@@ -39,6 +40,7 @@ function FloatField({
   onChange,
   multiline = false,
   rows = 4,
+  required = false,
 }: FloatFieldProps) {
   const autocompleteMap: Record<keyof FormState, string> = {
     nombre: "name",
@@ -55,6 +57,7 @@ function FloatField({
     onChange,
     autoComplete: autocompleteMap[id],
     className: "float-input",
+    required,
   };
 
   return (
@@ -142,14 +145,14 @@ export default function Contact() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 md:px-8">
         {/* Section header */}
-        <div className="contact-title text-center mb-14 md:mb-20">
-          <p className="text-primary-container font-label text-[0.65rem] tracking-[0.4em] uppercase font-bold mb-4">
+        <div className="contact-title mb-14 md:mb-20 max-w-xl">
+          <p className="text-secondary font-label text-[0.65rem] tracking-[0.4em] uppercase font-bold mb-4">
             Contacto Directo
           </p>
           <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface uppercase tracking-tighter mb-5">
             AGENDA TU CONSULTORÍA
           </h2>
-          <div className="h-0.5 w-16 bg-primary-container mx-auto" />
+          <div className="h-0.5 w-16 bg-secondary" />
         </div>
 
         {/* Two-column layout */}
@@ -175,6 +178,7 @@ export default function Contact() {
                   label="Nombre"
                   value={form.nombre}
                   onChange={handleChange}
+                  required
                 />
                 <FloatField
                   id="empresa"
@@ -188,6 +192,7 @@ export default function Contact() {
                   type="email"
                   value={form.email}
                   onChange={handleChange}
+                  required
                 />
                 <FloatField
                   id="mensaje"
@@ -196,6 +201,7 @@ export default function Contact() {
                   onChange={handleChange}
                   multiline
                   rows={4}
+                  required
                 />
 
                 <button
@@ -221,7 +227,12 @@ export default function Contact() {
 
               {/* Booking options */}
               <div className="space-y-3">
-                <button type="button" className="w-full flex justify-between items-center p-4 bg-surface-high border border-primary-container/10 hover:border-primary-container cursor-pointer group transition-colors duration-300">
+                <a
+                  href="https://calendly.com/axis-bim/15min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex justify-between items-center p-4 bg-surface-high border border-primary-container/10 hover:border-primary-container group transition-colors duration-300"
+                >
                   <div>
                     <p className="text-on-surface font-label text-sm uppercase font-bold tracking-wide group-hover:text-primary-container transition-colors">
                       15 Min Descubrimiento
@@ -233,9 +244,14 @@ export default function Contact() {
                   <span aria-hidden="true" className="material-symbols-outlined text-primary-container text-xl">
                     calendar_today
                   </span>
-                </button>
+                </a>
 
-                <button type="button" className="w-full flex justify-between items-center p-4 bg-surface-high border border-primary-container/10 hover:border-primary-container cursor-pointer group transition-colors duration-300">
+                <a
+                  href="https://calendly.com/axis-bim/45min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full flex justify-between items-center p-4 bg-surface-high border border-primary-container/10 hover:border-primary-container group transition-colors duration-300"
+                >
                   <div>
                     <p className="text-on-surface font-label text-sm uppercase font-bold tracking-wide group-hover:text-primary-container transition-colors">
                       45 Min Estrategia
@@ -247,7 +263,7 @@ export default function Contact() {
                   <span aria-hidden="true" className="material-symbols-outlined text-primary-container text-xl">
                     event
                   </span>
-                </button>
+                </a>
               </div>
             </div>
 

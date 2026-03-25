@@ -6,86 +6,169 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 interface Service {
+  num: string;
   icon: string;
   title: string;
+  subtitle: string;
   description: string;
-  accent: "cyan" | "orange" | "cyan2";
+  bullets: string[];
+  tools: string[];
+  image: string;
+  accent: "cyan" | "orange";
 }
 
 const services: Service[] = [
   {
+    num: "01",
     icon: "architecture",
     title: "Construcción Virtual",
+    subtitle: "Modelado & Coordinación BIM",
     description:
-      "Modelado BIM multidisciplinar en Archicad y Revit. Coordinación de especialidades para detectar interferencias antes de la construcción, reduciendo costos y tiempos de ejecución.",
+      "Modelamos cada disciplina del proyecto en 3D — estructura, arquitectura, redes hidráulicas, eléctricas y mecánicas — dentro de un modelo federado. Detectamos interferencias entre especialidades antes de que lleguen a obra, evitando demoliciones, retrabajo y sobrecostos.",
+    bullets: [
+      "Detección de colisiones entre disciplinas",
+      "Cuantificación de obra directo del modelo",
+      "Planos de construcción coordinados",
+    ],
+    tools: ["Revit", "Archicad", "Navisworks", "BIM 360"],
+    image: "/images/service-bim.jpg",
     accent: "cyan",
   },
   {
+    num: "02",
     icon: "database",
     title: "Levantamiento Digital",
+    subtitle: "Fotogrametría & Escaneo LiDAR",
     description:
-      "Captura de realidad mediante fotogrametría y drones. Generación de nubes de puntos y modelos 3D precisos como base para proyectos de renovación y ampliación.",
+      "Capturamos la realidad existente con drones y escáneres LiDAR para generar nubes de puntos y modelos 3D de alta precisión. Ideal como base para remodelaciones, ampliaciones o verificación de avance de obra contra el modelo BIM.",
+    bullets: [
+      "Nubes de puntos georeferenciadas",
+      "Ortomosaicos y modelos de terreno",
+      "Comparación modelo vs. realidad construida",
+    ],
+    tools: ["DJI Mapper", "RealityCapture", "CloudCompare", "Civil 3D"],
+    image: "/images/service-scan.jpg",
     accent: "orange",
   },
   {
+    num: "03",
     icon: "view_in_ar",
     title: "Visualización Avanzada",
+    subtitle: "Renders & Recorridos Virtuales",
     description:
-      "Renders fotorrealistas, fotomontajes arquitectónicos y recorridos virtuales que comunican el diseño con claridad a clientes e inversionistas.",
-    accent: "cyan2",
+      "Comunicamos el diseño con imágenes fotorrealistas, fotomontajes sobre contexto real y recorridos interactivos. Para que clientes, inversionistas y comités de aprobación vean el proyecto terminado antes de iniciar obra.",
+    bullets: [
+      "Renders fotorrealistas de interiores y exteriores",
+      "Fotomontajes sobre fotografía del sitio real",
+      "Recorridos virtuales navegables",
+    ],
+    tools: ["Twinmotion", "Lumion", "Enscape", "Photoshop"],
+    image: "/images/service-render.jpg",
+    accent: "cyan",
   },
 ];
 
-function ServiceCard({ service, index }: { service: Service; index: number }) {
-  const accentColors = {
-    cyan: {
-      icon: "text-primary-container/40 group-hover:text-primary-container",
-      line: "bg-primary-container/20 group-hover:bg-primary-container",
-    },
-    orange: {
-      icon: "text-secondary/40 group-hover:text-secondary",
-      line: "bg-secondary/20 group-hover:bg-secondary",
-    },
-    cyan2: {
-      icon: "text-primary-container/40 group-hover:text-primary-container",
-      line: "bg-primary-container/20 group-hover:bg-primary-container",
-    },
-  };
-
-  const colors = accentColors[service.accent];
+function ServiceRow({ service, index }: { service: Service; index: number }) {
+  const isReversed = index % 2 !== 0;
+  const accentColor =
+    service.accent === "cyan" ? "primary-container" : "secondary";
 
   return (
-    <article className="service-card group bg-surface p-10 md:p-12 hover:bg-surface-high transition-all duration-500 relative overflow-hidden border border-transparent hover:border-primary-container/10 flex flex-col">
-      {/* Index label */}
-      <div className="absolute top-6 right-6 font-headline text-[0.6rem] tracking-widest text-outline/40 font-bold">
-        {String(index + 1).padStart(2, "0")}
-      </div>
-
-      {/* Icon */}
-      <div className="mb-10">
-        <span
-          aria-hidden="true"
-          className={`material-symbols-outlined text-5xl transition-colors duration-500 ${colors.icon}`}
-          style={{ fontVariationSettings: "'FILL' 0, 'wght' 200, 'opsz' 48" }}
-        >
-          {service.icon}
-        </span>
-      </div>
-
-      {/* Title */}
-      <h3 className="text-xl md:text-2xl font-headline font-bold text-on-surface mb-5 uppercase tracking-tight">
-        {service.title}
-      </h3>
-
-      {/* Description */}
-      <p className="text-sm font-body text-on-surface-variant leading-relaxed mb-8 flex-1">
-        {service.description}
-      </p>
-
-      {/* Expanding line accent */}
+    <article
+      className={`service-row grid grid-cols-1 lg:grid-cols-2 gap-0 bg-surface-low border border-outline-variant/10 overflow-hidden`}
+    >
+      {/* Image */}
       <div
-        className={`h-0.5 card-line transition-all duration-500 ${colors.line}`}
-      />
+        className={`relative h-72 md:h-96 lg:h-auto lg:min-h-[480px] overflow-hidden ${isReversed ? "lg:order-2" : ""}`}
+      >
+        <img
+          src={service.image}
+          alt={service.title}
+          className="w-full h-full object-cover grayscale-[30%] opacity-80 hover:grayscale-0 hover:opacity-100 transition-[filter,opacity] duration-700"
+          loading="lazy"
+          width={960}
+          height={640}
+        />
+
+        {/* Gradient overlay */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-${isReversed ? "l" : "r"} from-transparent via-transparent to-surface-low/60 hidden lg:block`}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-surface-low via-transparent to-transparent lg:hidden" />
+
+        {/* Corner accents */}
+        <div
+          className={`absolute top-4 ${isReversed ? "left-4" : "right-4"} w-8 h-8 border-t-2 ${isReversed ? "border-l-2" : "border-r-2"} border-${accentColor}/30 pointer-events-none`}
+        />
+
+        {/* Number overlay */}
+        <div className="absolute bottom-4 left-4 font-headline text-6xl font-black text-on-surface/[0.04] select-none pointer-events-none leading-none">
+          {service.num}
+        </div>
+      </div>
+
+      {/* Content */}
+      <div
+        className={`flex flex-col justify-center p-8 md:p-12 lg:p-16 ${isReversed ? "lg:order-1" : ""}`}
+      >
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-2">
+          <span
+            aria-hidden="true"
+            className={`material-symbols-outlined text-2xl text-${accentColor}/60`}
+            style={{
+              fontVariationSettings: "'FILL' 0, 'wght' 300, 'opsz' 24",
+            }}
+          >
+            {service.icon}
+          </span>
+          <span
+            className={`text-[0.6rem] font-label font-bold uppercase tracking-[0.3em] text-${accentColor}/60`}
+          >
+            {service.subtitle}
+          </span>
+        </div>
+
+        <h3 className="text-2xl md:text-3xl lg:text-4xl font-headline font-bold text-on-surface mb-6 uppercase tracking-tight">
+          {service.title}
+        </h3>
+
+        <p className="text-[1.0625rem] font-body text-on-surface-variant leading-relaxed mb-8">
+          {service.description}
+        </p>
+
+        {/* Bullet points */}
+        <ul className="space-y-3 mb-8">
+          {service.bullets.map((bullet) => (
+            <li key={bullet} className="flex items-start gap-3">
+              <span
+                aria-hidden="true"
+                className={`material-symbols-outlined text-base text-${accentColor} mt-0.5 flex-shrink-0`}
+                style={{
+                  fontVariationSettings: "'FILL' 1, 'wght' 400, 'opsz' 20",
+                }}
+              >
+                check
+              </span>
+              <span className="text-sm font-body text-on-surface-variant">
+                {bullet}
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Tools row */}
+        <div className="flex flex-wrap items-center gap-2">
+          {service.tools.map((tool) => (
+            <span
+              key={tool}
+              className="px-3 py-1.5 bg-surface-highest font-label text-[0.6rem] text-outline uppercase tracking-widest"
+            >
+              {tool}
+            </span>
+          ))}
+        </div>
+      </div>
     </article>
   );
 }
@@ -107,14 +190,14 @@ export default function Services() {
             start: "top 85%",
           },
         });
-        gsap.set(".service-card", { autoAlpha: 0, y: 50 });
-        ScrollTrigger.batch(".service-card", {
+        gsap.set(".service-row", { autoAlpha: 0, y: 60 });
+        ScrollTrigger.batch(".service-row", {
           onEnter: (elements) =>
             gsap.to(elements, {
               y: 0,
               autoAlpha: 1,
-              stagger: 0.15,
-              duration: 0.6,
+              stagger: 0.2,
+              duration: 0.8,
               ease: "power2.out",
               overwrite: true,
             }),
@@ -151,10 +234,10 @@ export default function Services() {
           </div>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/10">
+        {/* Service rows */}
+        <div className="space-y-6 md:space-y-8">
           {services.map((service, i) => (
-            <ServiceCard key={service.title} service={service} index={i} />
+            <ServiceRow key={service.num} service={service} index={i} />
           ))}
         </div>
 

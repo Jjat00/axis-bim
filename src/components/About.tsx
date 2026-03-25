@@ -126,11 +126,24 @@ export default function About() {
               Nuestro Equipo
             </p>
 
-            <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface mb-8 leading-tight tracking-tighter">
+            <h2 className="text-4xl md:text-5xl font-headline font-bold text-on-surface mb-3 leading-tight tracking-tighter">
               DIRECCIÓN DE PROYECTOS
             </h2>
 
-            <p className="text-base md:text-lg text-on-surface-variant font-body leading-relaxed mb-10 max-w-lg">
+            {/* Director credentials */}
+            <div className="flex flex-wrap items-center gap-3 mb-8">
+              <span className="text-[0.6rem] font-label font-bold uppercase tracking-widest text-secondary px-2.5 py-1 border border-secondary/30">
+                Autodesk Certified
+              </span>
+              <span className="text-[0.6rem] font-label font-bold uppercase tracking-widest text-primary-container/70 px-2.5 py-1 border border-primary-container/20">
+                BIM Manager
+              </span>
+              <span className="text-[0.6rem] font-label font-bold uppercase tracking-widest text-on-surface-variant/60 px-2.5 py-1 border border-outline-variant/20">
+                PMP
+              </span>
+            </div>
+
+            <p className="text-[1.0625rem] text-on-surface-variant font-body leading-relaxed mb-10 max-w-lg">
               Nuestro Director de Proyectos cuenta con más de 7 años de
               experiencia en gerencia y coordinación BIM. Lideramos un equipo
               multidisciplinario que escala la producción técnica de tu proyecto
@@ -156,8 +169,21 @@ export default function About() {
               ))}
             </div>
 
+            {/* Testimonial */}
+            <blockquote className="mt-10 p-6 bg-surface-container border-l-2 border-secondary/40">
+              <p className="text-sm font-body text-on-surface-variant leading-relaxed italic mb-3">
+                "La coordinación BIM de AXIS redujo las interferencias en obra un 85%. Entregamos 3 semanas antes del cronograma."
+              </p>
+              <footer className="flex items-center gap-3">
+                <div className="w-6 h-px bg-secondary/40" />
+                <cite className="text-[0.6rem] font-label font-bold uppercase tracking-widest text-outline not-italic">
+                  Director de Obra — Proyecto Vial Regional
+                </cite>
+              </footer>
+            </blockquote>
+
             {/* Technical metadata row */}
-            <div className="mt-10 flex items-center gap-4">
+            <div className="mt-8 flex items-center gap-4">
               <div className="h-px w-8 bg-primary-container/30" />
               <span className="font-label text-[0.6rem] text-outline/60 uppercase tracking-[0.25em]">
                 Colombia · España · USA

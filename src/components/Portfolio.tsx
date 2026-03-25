@@ -5,19 +5,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-type FilterTab = "Infraestructura" | "Comercial" | "Institucional";
-
-const tabs: FilterTab[] = ["Infraestructura", "Comercial", "Institucional"];
+type ProjectTag = "Infraestructura" | "Comercial" | "Institucional";
 
 interface Project {
   title: string;
   subtitle: string;
-  tag: FilterTab;
+  tag: ProjectTag;
   image: string;
   size: "large" | "small";
   description: string;
   specs: { label: string; value: string }[];
   tools: string[];
+  outcomes: { value: string; label: string }[];
 }
 
 const projects: Project[] = [
@@ -36,6 +35,10 @@ const projects: Project[] = [
       { label: "Duración", value: "4 meses" },
     ],
     tools: ["Revit", "Navisworks", "Civil 3D"],
+    outcomes: [
+      { value: "-32%", label: "Costos" },
+      { value: "47", label: "Colisiones resueltas" },
+    ],
   },
   {
     title: "RETAIL COMERCIAL",
@@ -52,6 +55,10 @@ const projects: Project[] = [
       { label: "Duración", value: "6 semanas" },
     ],
     tools: ["Archicad", "Twinmotion", "Photoshop"],
+    outcomes: [
+      { value: "-25%", label: "Tiempo de obra" },
+      { value: "0", label: "Interferencias en obra" },
+    ],
   },
   {
     title: "EQUIPAMIENTO URBANO",
@@ -68,6 +75,10 @@ const projects: Project[] = [
       { label: "Duración", value: "3 meses" },
     ],
     tools: ["Revit", "Navisworks", "AutoCAD"],
+    outcomes: [
+      { value: "-28%", label: "Retrabajo" },
+      { value: "100%", label: "Trazabilidad" },
+    ],
   },
 ];
 
@@ -174,6 +185,18 @@ function ProjectModal({
                 {project.description}
               </p>
 
+              {/* Outcomes */}
+              {project.outcomes.length > 0 && (
+                <div className="flex gap-6 mb-8">
+                  {project.outcomes.map((o) => (
+                    <div key={o.label}>
+                      <div className="text-2xl font-headline font-black text-primary-container">{o.value}</div>
+                      <div className="text-[0.6rem] uppercase tracking-widest text-outline font-label">{o.label}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {/* Tools */}
               <div className="flex flex-wrap gap-2">
                 {project.tools.map((tool) => (
@@ -243,7 +266,6 @@ function ProjectModal({
 }
 
 export default function Portfolio() {
-  const [activeTab, setActiveTab] = useState<FilterTab>("Infraestructura");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const containerRef = useRef<HTMLElement>(null);
 
@@ -258,17 +280,6 @@ export default function Portfolio() {
           ease: "power2.out",
           scrollTrigger: {
             trigger: ".portfolio-label",
-            start: "top 85%",
-          },
-        });
-        gsap.from(".portfolio-tab", {
-          y: 20,
-          autoAlpha: 0,
-          stagger: 0.1,
-          duration: 0.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".portfolio-tab",
             start: "top 85%",
           },
         });
@@ -295,27 +306,10 @@ export default function Portfolio() {
         {/* Section label */}
         <div className="portfolio-label flex items-center gap-5 mb-12">
           <span className="h-px flex-1 bg-outline-variant/20" />
-          <h2 className="text-[0.65rem] font-label font-bold tracking-[0.5em] text-outline uppercase">
+          <h2 className="text-[0.65rem] font-label font-bold tracking-[0.5em] text-secondary uppercase">
             Proyectos Seleccionados
           </h2>
           <span className="h-px flex-1 bg-outline-variant/20" />
-        </div>
-
-        {/* Filter tabs */}
-        <div className="flex justify-center gap-8 md:gap-12 mb-14 md:mb-16">
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`portfolio-tab font-label font-bold text-xs uppercase tracking-widest pb-2 transition-all duration-300 ${
-                activeTab === tab
-                  ? "text-primary-container border-b border-primary-container"
-                  : "text-outline hover:text-on-surface"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
         </div>
 
         {/* Project grid */}
@@ -336,7 +330,7 @@ export default function Portfolio() {
             <div className="absolute bottom-8 left-8">
               <div className="mb-2 inline-flex items-center gap-2 px-3 py-1 bg-surface-highest/80">
                 <span className="text-[0.55rem] uppercase tracking-[0.3em] font-label text-outline">
-                  {activeTab}
+                  {projects[0].tag}
                 </span>
               </div>
               <h4 className="text-2xl md:text-3xl font-headline font-black text-on-surface uppercase mb-2 tracking-tight">
@@ -347,9 +341,15 @@ export default function Portfolio() {
               </p>
             </div>
 
-            {/* View detail hint */}
-            <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-              <span aria-hidden="true" className="material-symbols-outlined text-primary-container text-2xl">
+            {/* Outcome metrics */}
+            <div className="absolute bottom-8 right-8 flex items-center gap-4">
+              {projects[0].outcomes.map((o) => (
+                <div key={o.label} className="text-right opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="text-sm font-headline font-black text-primary-container">{o.value}</div>
+                  <div className="text-[0.5rem] uppercase tracking-widest text-outline font-label">{o.label}</div>
+                </div>
+              ))}
+              <span aria-hidden="true" className="material-symbols-outlined text-primary-container text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 open_in_full
               </span>
             </div>
@@ -414,9 +414,9 @@ export default function Portfolio() {
             className="inline-flex items-center gap-3 border border-outline-variant/30 text-on-surface-variant px-8 py-3.5 font-label font-bold text-xs uppercase tracking-widest hover:border-primary-container/40 hover:text-primary hover:bg-primary-container/5 transition-colors duration-300"
           >
             <span aria-hidden="true" className="material-symbols-outlined text-[1rem]">
-              folder_open
+              chat
             </span>
-            Ver Portafolio Completo
+            Discutir Tu Proyecto
           </a>
         </div>
       </div>
